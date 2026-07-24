@@ -51,6 +51,9 @@ jobs:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     uses: ./.github/workflows/shared-docker.yml
+    permissions:
+      contents: read
+      packages: write
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
       DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
@@ -58,7 +61,7 @@ jobs:
   deploy:
     name: Deploy to Production
     needs: build-and-push
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
