@@ -3,10 +3,10 @@ name: GlobalCart CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 env:
   REGISTRY: ghcr.io
@@ -49,7 +49,7 @@ jobs:
   build-and-push:
     name: Build & Publish Docker Image
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     uses: ./.github/workflows/shared-docker.yml
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
